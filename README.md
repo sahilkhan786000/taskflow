@@ -1,116 +1,106 @@
-\section{TaskFlow — Full Stack Project Management System}
+# TaskFlow — Full Stack Project Management System
 
-A modern full-stack \textbf{Task & Project Management System} built with:
+A modern full-stack **Task & Project Management System** built with:
 
-\begin{itemize}
-\item Go (Gin) backend
-\item PostgreSQL database
-\item Docker containerization
-\item React frontend
-\item JWT Authentication
-\item Kanban Drag-and-Drop Board
-\item Glass UI with Dark/Light Theme
-\end{itemize}
+* **Go (Gin)** backend
+* **PostgreSQL** database
+* **Docker** containerization
+* **React** frontend
+* **JWT Authentication**
+* **Kanban Drag-and-Drop Board**
+* **Glass UI with Dark/Light Theme**
 
-This project demonstrates real-world backend architecture, REST API design, Docker usage, authentication, and modern frontend UI patterns.
+This project demonstrates **real-world backend architecture**, **REST API design**, **Docker usage**, **authentication**, and **modern frontend UI patterns**.
 
-\section{Demo Features}
+---
 
-\subsection{Authentication}
+# Demo Features
 
-\begin{itemize}
-\item User Registration
-\item User Login
-\item JWT-based authentication
-\item Protected routes
-\end{itemize}
+## Authentication
 
-\subsection{Project Management}
+* User Registration
+* User Login
+* JWT-based authentication
+* Protected routes
 
-\begin{itemize}
-\item Create project
-\item View projects
-\item Delete project
-\item Search projects
-\item Dashboard statistics
-\end{itemize}
+## Project Management
 
-\subsection{Task Management}
+* Create project
+* View projects
+* Delete project
+* Search projects
+* Dashboard statistics
 
-\begin{itemize}
-\item Create task
-\item Update task status
-\item Delete task
-\item Priority management
-\item Kanban drag-and-drop board
-\end{itemize}
+## Task Management
 
-\subsection{UI Features}
+* Create task
+* Update task status
+* Delete task
+* Priority management
+* Kanban drag-and-drop board
 
-\begin{itemize}
-\item Glassmorphism design
-\item Dark / Light theme
-\item Responsive layout
-\item Toast notifications
-\item Loading skeletons
-\item Confirmation modals
-\end{itemize}
+## UI Features
 
-\section{Tech Stack}
+* Glassmorphism design
+* Dark / Light theme
+* Responsive layout
+* Toast notifications
+* Loading skeletons
+* Confirmation modals
 
-\subsection{Backend}
+---
 
-\begin{itemize}
-\item Go (Golang)
-\item Gin Web Framework
-\item PostgreSQL
-\item JWT Authentication
-\item Docker
-\end{itemize}
+# Tech Stack
 
-\subsection{Frontend}
+## Backend
 
-\begin{itemize}
-\item React
-\item Tailwind CSS
-\item Framer Motion
-\item React Toastify
-\item Drag & Drop (Kanban)
-\end{itemize}
+* Go (Golang)
+* Gin Web Framework
+* PostgreSQL
+* JWT Authentication
+* Docker
 
-\subsection{DevOps / Tools}
+## Frontend
 
-\begin{itemize}
-\item Docker
-\item Docker Compose
-\item PostgreSQL
-\item REST API
-\item Environment Variables
-\end{itemize}
+* React
+* Tailwind CSS
+* Framer Motion
+* React Toastify
+* Drag & Drop (Kanban)
 
-\section{System Architecture}
+## DevOps / Tools
 
-\begin{center}
+* Docker
+* Docker Compose
+* PostgreSQL
+* REST API
+* Environment Variables
 
+---
+
+# System Architecture
+
+```text
 Frontend (React)
 
-$\downarrow$ API Calls
+        ↓ API Calls
 
 Backend (Go + Gin)
 
-$\downarrow$
+        ↓
 
 PostgreSQL Database
 
-$\downarrow$
+        ↓
 
 Docker Containers
+```
 
-\end{center}
+---
 
-\section{Project Structure}
+# Project Structure
 
-\begin{verbatim}
+```bash
 assignment/
 
 ├── backend/
@@ -151,6 +141,357 @@ assignment/
 │   └── vite.config.js
 │
 └── README.md
-\end{verbatim}
+```
 
+---
 
+# API Endpoints
+
+## Authentication
+
+```
+POST /auth/register
+POST /auth/login
+```
+
+## Projects
+
+```
+GET    /projects
+POST   /projects
+GET    /projects/:id
+DELETE /projects/:id
+```
+
+## Tasks
+
+```
+GET    /projects/:id/tasks
+POST   /projects/:id/tasks
+PATCH  /tasks/:id
+DELETE /tasks/:id
+```
+
+---
+
+# Environment Variables
+
+Create the file:
+
+```
+backend/.env
+```
+
+Add:
+
+```env
+PORT=8080
+
+DB_URL=postgres://postgres:password@localhost:5432/taskflow?sslmode=disable
+
+JWT_SECRET=supersecretkey
+```
+
+---
+
+# Running Project Locally (Without Docker)
+
+## Step 1 — Start PostgreSQL
+
+Install PostgreSQL locally or run using Docker.
+
+---
+
+## Step 2 — Run Backend
+
+```bash
+cd backend
+go run cmd/main.go
+```
+
+Server runs on:
+
+```
+http://localhost:8080
+```
+
+---
+
+## Step 3 — Run Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend runs on:
+
+```
+http://localhost:5173
+```
+
+---
+
+# Running Project With Docker
+
+This project uses **Docker** to run PostgreSQL in an isolated container.
+
+---
+
+## Start Database
+
+```bash
+docker compose up db
+```
+
+This will:
+
+* Pull PostgreSQL image
+* Create database container
+* Expose port `5432`
+* Persist database data
+
+---
+
+## Check Running Containers
+
+```bash
+docker ps
+```
+
+---
+
+## Stop Containers
+
+```bash
+docker compose down
+```
+
+---
+
+# Docker Concepts Used
+
+## Container
+
+A container is a lightweight runtime environment that runs an application.
+
+Example:
+
+```
+postgres:15
+```
+
+This runs PostgreSQL inside Docker.
+
+---
+
+## Image
+
+An image is a blueprint used to create containers.
+
+Example:
+
+```
+postgres:15
+```
+
+Docker pulls this image from Docker Hub.
+
+---
+
+## Docker Compose
+
+Docker Compose allows running multiple containers using a configuration file.
+
+File used:
+
+```
+docker-compose.yml
+```
+
+---
+
+## Volume
+
+Volumes store persistent data outside the container.
+
+Used for:
+
+* PostgreSQL database storage
+
+Example:
+
+```yaml
+volumes:
+  - postgres_data:/var/lib/postgresql/data
+```
+
+This prevents data loss when the container stops.
+
+---
+
+## Port Mapping
+
+Maps container port to the local machine.
+
+Example:
+
+```
+5432:5432
+```
+
+Meaning:
+
+```
+Local machine → Container
+```
+
+---
+
+## Network
+
+Allows containers to communicate.
+
+Example:
+
+```
+backend → database
+```
+
+---
+
+# Docker Compose File
+
+```yaml
+services:
+
+  db:
+    image: postgres:15
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: taskflow
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+```
+
+---
+
+# Database Schema
+
+## Users Table
+
+* id
+* name
+* email
+* password
+* created_at
+
+## Projects Table
+
+* id
+* name
+* user_id
+* created_at
+
+## Tasks Table
+
+* id
+* title
+* status
+* priority
+* project_id
+* created_at
+
+---
+
+# Authentication Flow
+
+```text
+User Login
+     ↓
+Server verifies credentials
+     ↓
+JWT token generated
+     ↓
+Token stored in browser
+     ↓
+Token sent with every request
+```
+
+---
+
+# Kanban Board Logic
+
+Tasks are grouped by:
+
+```
+status
+```
+
+Possible values:
+
+* todo
+* in_progress
+* done
+
+Drag-and-drop updates status using:
+
+```
+PATCH /tasks/:id
+```
+
+---
+
+# UI Features
+
+* Dark / Light theme toggle
+* Glassmorphism design
+* Responsive layout
+* Animated transitions
+* Skeleton loading
+* Toast notifications
+* Confirmation modals
+* Kanban drag and drop
+
+---
+
+# Security
+
+* JWT Authentication
+* Password hashing
+* Protected routes
+* Environment variables
+* Input validation
+
+---
+
+# How Migrations Work
+
+SQL migrations are stored in:
+
+```
+backend/migrations/
+```
+
+Run migrations using Docker:
+
+```bash
+docker run --rm \
+-v C:\path\to\migrations:/migrations \
+migrate/migrate \
+-path=/migrations \
+-database "postgres://postgres:password@host.docker.internal:5432/taskflow?sslmode=disable" \
+up
+```
+
+This command creates the required database tables.
